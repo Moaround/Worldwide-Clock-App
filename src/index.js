@@ -28,18 +28,17 @@ function updateTime() {
   }
 }
 
-setInterval(updateTime, 1000);
-updateTime();
-
 function updateCity(event) {
   let cityTimeZone = event.target.value;
   let cityName = cityTimeZone.replace("_", " ").split("/")[1];
   let cityTime = moment().tz(cityTimeZone);
   let citiesElement = document.querySelector("#cities");
+  // citiesElement.innerHTML = ``; will replace the default 2 cities Paris and Los Angeles with your selected city
+  // citiesElement.innerHTML += ``; will keep adding your choosen cities to the default 2 cities Paris and Los Angeles which creates a longer and longer list.
   citiesElement.innerHTML = `
-     <div class="city">
+       <div class="city">
           <div>
-            <h2>${cityTimeZone}</h2>
+            <h2>${cityName}</h2>
             <div class="date">${cityTime.format("MMMM Do YYYY")}</div>
           </div>
           <div class="time">${cityTime.format(
@@ -48,6 +47,9 @@ function updateCity(event) {
         </div>
   `;
 }
+
+setInterval(updateTime, 1000);
+updateTime();
 
 let citiesSelectElement = document.querySelector("#city");
 citiesSelectElement.addEventListener("change", updateCity);
